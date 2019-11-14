@@ -277,7 +277,7 @@ func FmtIntFloat(f float64) string {
 			f *= 1000
 			p--
 		}
-		return FmtIntFloat(f) + chart.Units[p]
+		return FmtIntFloat(f) + Units[p]
 	}
 
 	var p = 7
@@ -285,7 +285,7 @@ func FmtIntFloat(f float64) string {
 		f /= 1000
 		p++
 	}
-	return FmtIntFloat(f) + chart.Units[p]
+	return FmtIntFloat(f) + Units[p]
 }
 
 func almostEqual(a, b, d float64) bool {
