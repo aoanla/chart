@@ -6,3 +6,5 @@ require (
 	github.com/llgcode/draw2d v0.0.0-20180825133448-f52c8a71aff0
 	golang.org/x/image v0.0.0-20181030002151-69cc3646b96e
 )
+
+go 1.13
