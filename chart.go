@@ -262,6 +262,32 @@ func FmtFloat(f float64) string {
 	return FmtFloat(f) + Units[p]
 }
 
+//integer precision float formatting for charts
+func FmtIntFloat(f float64) string {
+	af := math.Abs(f)
+	if f == 0 {
+		return "0"
+	} else if 1 <= af && af < 1000 {
+		return fmt.Sprintf("%.f", f)
+	}
+
+	if af < 1 {
+		var p = 8
+		for math.Abs(f) < 1 && p >= 0 {
+			f *= 1000
+			p--
+		}
+		return FmtIntFloat(f) + chart.Units[p]
+	}
+
+	var p = 7
+	for math.Abs(f) > 1000 && p < 16 {
+		f /= 1000
+		p++
+	}
+	return FmtIntFloat(f) + chart.Units[p]
+}
+
 func almostEqual(a, b, d float64) bool {
 	return math.Abs(a-b) < d
 }
