@@ -15,10 +15,10 @@ import (
 	"time"
 
 	"github.com/ajstarks/svgo"
-	"github.com/vdobler/chart"
-	"github.com/vdobler/chart/imgg"
-	"github.com/vdobler/chart/svgg"
-	"github.com/vdobler/chart/txtg"
+	"github.com/aoanla/chart"
+	"github.com/aoanla/chart/imgg"
+	"github.com/aoanla/chart/svgg"
+	"github.com/aoanla/chart/txtg"
 )
 
 var (

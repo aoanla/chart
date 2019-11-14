@@ -1,7 +1,7 @@
 include $(GOROOT)/src/Make.inc
 
 
-TARG=github.com/vdobler/chart
+TARG=github.com/aoanla/chart
 GOFILES=\
 	chart.go\
 	data.go\
@@ -30,7 +30,7 @@ samplechart: samplecharts.go install drivers
 	$(GC) -I. samplecharts.go
 	$(LD) -L. -o samplecharts samplecharts.$(O)
 
-format: $(GOFILES) samplecharts.go  
+format: $(GOFILES) samplecharts.go
 	gofmt -w $^
 	for d in $(DRIVERS); do (cd $$d; make format); done
 
