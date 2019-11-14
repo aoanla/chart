@@ -18,6 +18,7 @@ type BarChart struct {
 	Horizontal     bool        // Display as horizontal bars (unimplemented)
 	Stacked        bool        // Display different data sets ontop of each other (default is side by side)
 	ShowVal        int         // Display values: 0: don't show; 1: above bar, 2: centerd in bar; 3: at top of bar
+															//   add 3 to value to get them formatted same as YTics (4,5,6)
 	SameBarWidth   bool        // all data sets use the same (smalest of all data sets) bar width
 	BarWidthFac    float64     // if nonzero: scale determined bar width with this factor
 	Options        PlotOptions // visual apperance, nil to use DefaultOptions
@@ -336,18 +337,26 @@ func (c *BarChart) addLabel(bar *Barinfo, y float64) {
 	}
 
 	var sval string
-	if math.Abs(y) >= 100 {
-		sval = fmt.Sprintf("%d", int(y+0.5))
-	} else if math.Abs(y) >= 10 {
-		sval = fmt.Sprintf("%.1f", y)
-	} else if math.Abs(y) >= 1 {
-		sval = fmt.Sprintf("%.2f", y)
+	var cc int
+	
+	//alternate formatter, use YRange.TicSetting.Format function
+	if c.ShowVal > 3 {
+		cc = c.ShowVal - 3
+		sval = c.YRange.TicSetting.Format(y)
 	} else {
-		sval = fmt.Sprintf("%.3f", y)
+		cc = c.ShowVal
+		if math.Abs(y) >= 100 {
+			sval = fmt.Sprintf("%d", int(y+0.5))
+		} else if math.Abs(y) >= 10 {
+			sval = fmt.Sprintf("%.1f", y)
+		} else if math.Abs(y) >= 1 {
+			sval = fmt.Sprintf("%.2f", y)
+		} else {
+			sval = fmt.Sprintf("%.3f", y)
+		}
 	}
-
 	var tp string
-	switch c.ShowVal {
+	switch cc {
 	case 1:
 		if y >= 0 {
 			tp = "ot"
